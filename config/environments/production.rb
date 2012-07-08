@@ -19,6 +19,9 @@ SampleApp::Application.configure do
 
   # Generate digests for assets URLs
   config.assets.digest = true
+  
+  # Precompile CSS and JS files (added by palin 120708)
+  config.assets.precompile += %w( *.css *.js )
 
   # Defaults to Rails.root.join("public/assets")
   # config.assets.manifest = YOUR_PATH
