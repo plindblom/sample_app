@@ -52,6 +52,41 @@ describe UsersController do
         # response.should have_selector("a", :href => "users?page=2",
         #                                   :content => "Next")
       end
+      
+      describe "but non-admins" do
+        it "should not show the destroy link on users" do
+          get :index
+          response.should_not have_selector("a", :href => "/users/2",
+                                                 :content => "delete")
+        end
+      end
+    end
+    
+    describe "for signed-in admins" do
+      before(:each) do
+        @user = test_sign_in(Factory(:user, :admin => true))
+        second = Factory(:user, :name => "Bob", :email => "another@example.com")
+        third = Factory(:user, :name => "Ben", :email => "another@example.net")
+        
+        @users = [@user, second, third]
+        30.times do
+          @users << Factory(:user, :name => Factory.next(:name),
+                                   :email => Factory.next(:email))
+        end
+      end
+      
+      it "should show destroy links next to users" do
+        get :index
+        response.should have_selector("a", :href => "/users/2",
+                                           :content => "delete")
+      end
+      
+      it "should not show the destroy link on the current user" do
+        get :index
+        response.should_not have_selector("a", :href => "/users/1",
+                                               :content => "delete",
+                                               :title => "Delete #{@user.name}")
+      end
     end
   end
   
