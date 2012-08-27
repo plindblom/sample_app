@@ -1,18 +1,21 @@
 source 'https://rubygems.org'
 
 gem 'rails', '3.2.2'
+gem 'gravatar_image_tag', '1.1.3'
+gem 'will_paginate', '3.0.3'
+gem 'jquery-rails'
+
+
 
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
 
-gem 'gravatar_image_tag'
-
-#gem 'pg'
 
 group :development do
   gem 'sqlite3'
 	gem 'rspec-rails'
 	gem 'annotate', '2.4.1.beta1'
+	gem 'faker'
 end
 group :test do
   gem 'sqlite3'
@@ -22,7 +25,7 @@ group :test do
 end
 
 group :production do
-  gem 'pg'
+  gem 'pg'  # In production we run postgresql on Heroku
 end
 
 # Gems used only for assets and not required
@@ -37,7 +40,6 @@ group :assets do
   gem 'uglifier', '>= 1.0.3'
 end
 
-gem 'jquery-rails'
 
 # To use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.0.0'
